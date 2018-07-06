@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>UniversalGraphics.Core</AssemblyName>
+    <Copyright>Copyright © 2018 mntone</Copyright>
+    <Authors>mntone</Authors>
+    <Product>UniversalGraphics Interface Assembly</Product>
+    <Description>UniversalGraphics use each suitable 2D graphics.</Description>
+    <AssemblyVersion>0.9.0.0</AssemblyVersion>
+    <FileVersion>0.9.0.0</FileVersion>
+    <OutputPath>..\bin\UniversalGraphics\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.4.0" />
+  </ItemGroup>
+
+</Project>

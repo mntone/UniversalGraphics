@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>Xamarin.Mac20;Xamarin.iOS10;Xamarin.WatchOS10;Xamarin.TVOS10</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>UniversalGraphics.Quartz2D</AssemblyName>
+    <Copyright>Copyright © 2018 mntone</Copyright>
+    <Authors>mntone</Authors>
+    <Product>UniversalGraphics CoreGraphics Assembly</Product>
+    <Description>UniversalGraphics use each suitable 2D graphics.</Description>
+    <AssemblyVersion>0.9.0.0</AssemblyVersion>
+    <FileVersion>0.9.0.0</FileVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>..\bin\UniversalGraphics.Quartz2D\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\UGFactory.cs" Link="Internal\UGFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.5.4" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UniversalGraphics\UniversalGraphics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+</Project>

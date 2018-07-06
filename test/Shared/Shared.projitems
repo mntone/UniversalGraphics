@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>58a65f45-54ed-487d-85ce-d82880e54a4e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>UniversalGraphics.Test</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\AnimatableCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\BorderCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\ClipedGradientCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\OffScreenCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\TransformCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructures\AssemblyExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\ColorPalletCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructures\DelegateRetriver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Infrastructures\DisposableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\MyCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\PathCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\GradientCanvasViewDelegate.cs" />
+  </ItemGroup>
+</Project>

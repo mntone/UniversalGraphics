@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>uap10.0;uap10.0.17134</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>UniversalGraphics.Win2D</AssemblyName>
+    <Copyright>Copyright © 2018 mntone</Copyright>
+    <Authors>mntone</Authors>
+    <Product>UniversalGraphics Win2D Assembly</Product>
+    <Description>UniversalGraphics use each suitable 2D graphics.</Description>
+    <AssemblyVersion>0.9.0.0</AssemblyVersion>
+    <FileVersion>0.9.0.0</FileVersion>
+    <OutputPath>..\bin\UniversalGraphics.Win2D\$(Configuration)\</OutputPath>
+    <Platforms>x86;x64;ARM</Platforms>
+    <BuildDependsOn>$(BuildDependsOn);CopyFiles</BuildDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'wpa81'">
+    <Platforms>x86;ARM</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0'">
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0.17134'">
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\UGFactory.cs" Link="Internal\UGFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.20-preview" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UGCanvasControlBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcore451' OR '$(TargetFramework)' == 'wpa81'">
+    <PackageReference Include="Win2D.win81" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
+    <PackageReference Include="Win2D.uwp" Version="1.22.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0.17134'">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
+    <PackageReference Include="Win2D.uwp" Version="1.23.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UniversalGraphics\UniversalGraphics.csproj" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+  <Target Name="CopyFiles" AfterTargets="Build">
+    <Copy SourceFiles="$(OutputPath)Themes\Generic.xbf" DestinationFolder="$(OutputPath)UniversalGraphics.Win2D\Themes" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)UGCanvasControlBase.xbf" DestinationFolder="$(OutputPath)UniversalGraphics.Win2D" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)UniversalGraphics.Win2D.pri" DestinationFolder="$(OutputPath)UniversalGraphics.Win2D" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)UniversalGraphics.Win2D.xr.xml" DestinationFolder="$(OutputPath)UniversalGraphics.Win2D" ContinueOnError="true" />
+  </Target>
+
+</Project>
