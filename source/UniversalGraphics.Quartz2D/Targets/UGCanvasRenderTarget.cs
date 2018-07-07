@@ -1,4 +1,4 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using System;
 using System.Diagnostics;
 
@@ -26,9 +26,8 @@ namespace UniversalGraphics.Quartz2D
 			}
 		}
 
-		private CGImage _native;
-
 		private bool _disposed = false;
+		private CGImage _native = null;
 
 		public UGCanvasRenderTarget(UGSize canvasSize) : this(canvasSize, 1F) { }
 
@@ -75,8 +74,8 @@ namespace UniversalGraphics.Quartz2D
 		public NSImage GetImageAsNSImage()
 		{
 			var size = new CGSize(
-				Native.Width,
-				Native.Height);
+				_native.Width,
+				_native.Height);
 			return new NSImage(Native, size);
 		}
 #else
