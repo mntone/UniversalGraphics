@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using UniversalGraphics.GdiPlus.Win32;
 
@@ -20,6 +20,8 @@ namespace UniversalGraphics.GdiPlus
 
 		protected virtual void Initialize()
 		{
+			DoubleBuffered = true;
+
 			_colorService = new ColorService();
 		}
 
@@ -52,7 +54,7 @@ namespace UniversalGraphics.GdiPlus
 			var graphics = e.Graphics;
 #if NET47 || NET471
 			var scale = DeviceDpi / 96F;
-			graphics.PageScale = scale;
+			graphics.ScaleTransform(scale, scale);
 			var scaledClientSize = new UGSize(
 				ClientSize.Width / scale,
 				ClientSize.Height / scale);
