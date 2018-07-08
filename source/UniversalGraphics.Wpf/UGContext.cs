@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Windows;
@@ -45,6 +45,12 @@ namespace UniversalGraphics.Wpf
 		{
 			get => RenderOptions.GetEdgeMode(_canvas) == EdgeMode.Unspecified;
 			set => RenderOptions.SetEdgeMode(_canvas, value ? EdgeMode.Unspecified : EdgeMode.Aliased);
+		}
+
+		public UGTextAntialiasing TextAntialiasing
+		{
+			get => TextOptions.GetTextRenderingMode(_canvas).ToUGTextAntialiasing();
+			set => TextOptions.SetTextRenderingMode(_canvas, value.ToWPFTextRenderingMode());
 		}
 
 		public UGSize CanvasSize => new UGSize((float)_canvasSize.Width, (float)_canvasSize.Height);
@@ -252,6 +258,20 @@ namespace UniversalGraphics.Wpf
 			pen.SetStrokeStyle(strokeStyle);
 			var rect = new Rect(x, y, width, height);
 			Native.DrawRoundedRectangle(null, pen, rect, radiusX, radiusY);
+		}
+
+		public void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color)
+		{
+			var brush = new SolidColorBrush(color.ToWPFColor());
+			var pTextLayout = (UGTextLayout)textLayout;
+			var bounds = pTextLayout.LayoutBounds;
+			var native = Native;
+			try
+			{
+				native.PushTransform(new TranslateTransform(x + bounds.X, y + bounds.Y));
+				native.DrawGlyphRun(brush, pTextLayout.Native);
+			}
+			finally { native.Pop(); }
 		}
 
 		public void DrawImage(IUGCanvasImage image, float x, float y)

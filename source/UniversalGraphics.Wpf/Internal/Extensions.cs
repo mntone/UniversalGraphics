@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -154,6 +154,51 @@ namespace UniversalGraphics.Wpf
 				ugStops[i++] = new UGGradientStop(wpfStop.Color.ToUGColor(), (float)wpfStop.Offset);
 			}
 			return ugStops;
+		}
+	}
+
+	internal static class UGTextAntialiasingExtensions
+	{
+		public static TextRenderingMode ToWPFTextRenderingMode(this UGTextAntialiasing textAntialiasing)
+		{
+			switch (textAntialiasing)
+			{
+				case UGTextAntialiasing.Auto:
+					return TextRenderingMode.Auto;
+
+				case UGTextAntialiasing.Aliased:
+					return TextRenderingMode.Aliased;
+
+				case UGTextAntialiasing.Antialiased:
+					return TextRenderingMode.Grayscale;
+
+				case UGTextAntialiasing.SubpixelAntialiased:
+					return TextRenderingMode.ClearType;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+
+		public static UGTextAntialiasing ToUGTextAntialiasing(this TextRenderingMode textRendering)
+		{
+			switch (textRendering)
+			{
+				case TextRenderingMode.Auto:
+					return UGTextAntialiasing.Auto;
+
+				case TextRenderingMode.Aliased:
+					return UGTextAntialiasing.Aliased;
+
+				case TextRenderingMode.Grayscale:
+					return UGTextAntialiasing.Antialiased;
+
+				case TextRenderingMode.ClearType:
+					return UGTextAntialiasing.SubpixelAntialiased;
+
+				default:
+					throw new NotSupportedException();
+			}
 		}
 	}
 }
