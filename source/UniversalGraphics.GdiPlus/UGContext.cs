@@ -85,9 +85,7 @@ namespace UniversalGraphics.GdiPlus
 			var translatedColor = _colorService.GetTranslatedColor(color);
 			using (var pen = new Pen(translatedColor, strokeWidth))
 			{
-				var pt1 = new Point((int)(startX + 0.5F), (int)(startY + 0.5F));
-				var pt2 = new Point((int)(endX + 0.5F), (int)(endY + 0.5F));
-				Native.DrawLine(pen, pt1, pt2);
+				Native.DrawLine(pen, startX, startY, endX, endY);
 			}
 		}
 
