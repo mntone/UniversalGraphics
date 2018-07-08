@@ -1,7 +1,13 @@
-﻿using CoreGraphics;
+using CoreGraphics;
 using System;
 using System.Linq;
 using System.Numerics;
+
+#if __IOS__ || __TVOS__ || __WATCHOS__
+using UIKit;
+#elif __MACOS__
+using AppKit;
+#endif
 
 namespace UniversalGraphics.Quartz2D
 {
@@ -121,6 +127,14 @@ namespace UniversalGraphics.Quartz2D
 				return new CGColor(colorSpace, color.ToColorComponents());
 			}
 		}
+
+#if __MACOS__
+		public static NSColor ToNSColor(this UGColor color)
+			=> NSColor.FromRgba(color.R, color.G, color.B, color.A);
+#else
+		public static UIColor ToUIColor(this UGColor color)
+			=> UIColor.FromRGBA(color.R, color.G, color.B, color.A);
+#endif
 
 		public static UGColor ToUGColor(this CGColor color)
 		{

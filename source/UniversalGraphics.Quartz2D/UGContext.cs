@@ -48,6 +48,40 @@ namespace UniversalGraphics.Quartz2D
 		}
 		private bool _Antialiasing = true;
 
+		public UGTextAntialiasing TextAntialiasing
+		{
+			get => _TextAntialiasing;
+			set
+			{
+				if (_TextAntialiasing != value)
+				{
+					_TextAntialiasing = value;
+
+					var native = Native;
+					switch (value)
+					{
+						case UGTextAntialiasing.Aliased:
+							native.SetShouldSmoothFonts(false);
+							native.SetShouldSubpixelPositionFonts(false);
+							break;
+
+						case UGTextAntialiasing.Antialiased:
+							native.SetShouldSmoothFonts(true);
+							native.SetShouldSubpixelPositionFonts(false);
+							break;
+
+						case UGTextAntialiasing.Auto:
+						case UGTextAntialiasing.SubpixelAntialiased:
+						default:
+							native.SetShouldSmoothFonts(true);
+							native.SetShouldSubpixelPositionFonts(true);
+							break;
+					}
+				}
+			}
+		}
+		private UGTextAntialiasing _TextAntialiasing = UGTextAntialiasing.Auto;
+
 		public UGSize CanvasSize => new UGSize((float)_canvasRect.Width, (float)_canvasRect.Height);
 		public float ScaleFactor { get; }
 		public int Dpi => (int)(72F * ScaleFactor + .5F);
@@ -410,6 +444,12 @@ namespace UniversalGraphics.Quartz2D
 				}
 				finally { native.RestoreState(); }
 			}
+		}
+
+		public void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color)
+		{
+			var pTextLayout = (UGTextLayout)textLayout;
+			pTextLayout.Draw(Native, x, y, color);
 		}
 
 		public void DrawImage(IUGCanvasImage image, float x, float y)
