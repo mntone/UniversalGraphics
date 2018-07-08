@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using UniversalGraphics.GdiPlus.Win32;
@@ -17,7 +17,13 @@ namespace UniversalGraphics.GdiPlus
 		private void Reset()
 		{
 			_translatedColors.Clear();
-			_hTransform = IntPtr.Zero;
+
+			var hTransform = _hTransform;
+			if (hTransform != IntPtr.Zero)
+			{
+				NativeMethods.ColorTransform.DeleteColorTransform(hTransform);
+				_hTransform = IntPtr.Zero;
+			}
 		}
 
 		internal void Initialize(IntPtr hMonitor)
