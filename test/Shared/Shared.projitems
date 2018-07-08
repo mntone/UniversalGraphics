@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Delegates\BorderCanvasViewDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Delegates\ClipedGradientCanvasViewDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Delegates\OffScreenCanvasViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Delegates\TextCanvasViewDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Delegates\TransformCanvasViewDelegate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Infrastructures\AssemblyExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Delegates\ColorPalletCanvasViewDelegate.cs" />
