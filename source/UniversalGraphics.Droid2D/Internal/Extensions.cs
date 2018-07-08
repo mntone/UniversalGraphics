@@ -1,11 +1,12 @@
-﻿using Android.Graphics;
+using Android.Graphics;
+using Android.Text;
 using System;
 using System.Linq;
 
 namespace UniversalGraphics.Droid2D
 {
 	public static class UGColorExtensions
-    {
+	{
 		public static Color ToAGColor(this UGColor color)
 			=> new Color(color.ColorAsInt);
 
@@ -19,11 +20,14 @@ namespace UniversalGraphics.Droid2D
 			=> new Rect(
 				(int)(rect.X + 0.5F),
 				(int)(rect.Y + 0.5F),
-				(int)(rect.Width + 0.5F),
-				(int)(rect.Height + 0.5F));
+				(int)(rect.X + rect.Width + 0.5F),
+				(int)(rect.Y + rect.Height + 0.5F));
 
 		public static RectF ToAGRectF(this UGRect rect)
-			=> new RectF(rect.X, rect.Y, rect.Width, rect.Height);
+			=> new RectF(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height);
+
+		public static UGRect ToUGRect(this Rect rect)
+			=> new UGRect(rect.Left, rect.Top, rect.Width(), rect.Height());
 	}
 
 	internal static class UGStrokeStyleExtensions
@@ -56,7 +60,7 @@ namespace UniversalGraphics.Droid2D
 
 				case UGLineJoin.Bevel:
 					return Paint.Join.Bevel;
-					
+
 				case UGLineJoin.Round:
 					return Paint.Join.Round;
 
@@ -97,6 +101,27 @@ namespace UniversalGraphics.Droid2D
 
 				case UGEdgeBehavior.Mirror:
 					return Shader.TileMode.Mirror;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+	}
+
+	internal static class UGHorizontalAlignmentExtensions
+	{
+		public static Layout.Alignment ToATLayoutAlignment(this UGHorizontalAlignment horizontalAlignment)
+		{
+			switch (horizontalAlignment)
+			{
+				case UGHorizontalAlignment.Left:
+					return Layout.Alignment.AlignNormal;
+
+				case UGHorizontalAlignment.Right:
+					return Layout.Alignment.AlignOpposite;
+
+				case UGHorizontalAlignment.Center:
+					return Layout.Alignment.AlignCenter;
 
 				default:
 					throw new NotSupportedException();

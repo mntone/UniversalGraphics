@@ -45,6 +45,8 @@ namespace UniversalGraphics.Droid2D
 			set => _context.Flags |= PaintFlags.AntiAlias;
 		}
 
+		public UGTextAntialiasing TextAntialiasing { get; set; }
+
 		public UGSize CanvasSize { get; }
 		public float ScaleFactor { get; }
 		public int Dpi => (int)(160F * ScaleFactor + .5F);
@@ -406,6 +408,28 @@ namespace UniversalGraphics.Droid2D
 				paint.StrokeWidth = strokeWidth;
 				paint.SetStrokeStyle(strokeWidth, strokeStyle);
 				Native.DrawRoundRect(x, y, x + width, y + height, radiusX, radiusY, paint);
+			}
+		}
+
+		public void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color)
+		{
+			var pTextLayout = (UGTextLayout)textLayout;
+			pTextLayout.SetTextAntialiasing(TextAntialiasing);
+
+			var native = Native;
+			int count = -1;
+			try
+			{
+				count = native.Save();
+				native.Translate(x, y);
+				pTextLayout.Draw(native, color);
+			}
+			finally
+			{
+				if (count != -1)
+				{
+					native.RestoreToCount(count);
+				}
 			}
 		}
 
