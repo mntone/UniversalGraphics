@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
@@ -7,6 +7,8 @@ namespace UniversalGraphics
 	[StructLayout(LayoutKind.Sequential)]
 	public struct UGRect : IEquatable<UGRect>
 	{
+		public static readonly UGRect Zero = new UGRect(Vector4.Zero);
+
 		private Vector4 _data;
 
 		public UGRect(float x, float y, float width, float height)
@@ -43,6 +45,11 @@ namespace UniversalGraphics
 			_data.X = point.Y;
 			_data.Y = size.Width;
 			_data.Z = size.Height;
+		}
+
+		private UGRect(Vector4 data)
+		{
+			_data = data;
 		}
 
 		public override bool Equals(object obj)
@@ -147,6 +154,8 @@ namespace UniversalGraphics
 				Height = value.Height;
 			}
 		}
+
+		public bool IsEmpty => Width == 0 && Height == 0;
 
 		public static bool operator ==(UGRect a, UGRect b) => a._data == b._data;
 		public static bool operator !=(UGRect a, UGRect b) => a._data != b._data;

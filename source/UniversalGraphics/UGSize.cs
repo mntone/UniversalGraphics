@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
@@ -7,7 +7,11 @@ namespace UniversalGraphics
 	[StructLayout(LayoutKind.Sequential)]
 	public struct UGSize : IEquatable<UGSize>
 	{
+		public static readonly UGSize MaxValue = new UGSize(float.MaxValue);
+
 		private Vector2 _data;
+
+		public UGSize(float value) : this(value, value) { }
 
 		public UGSize(float width, float height)
 		{
