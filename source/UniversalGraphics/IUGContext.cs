@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -9,6 +9,8 @@ namespace UniversalGraphics
 		IUGFactory Factory { get; }
 
 		bool Antialiasing { get; set; }
+		UGTextAntialiasing TextAntialiasing { get; set; }
+
 		UGSize CanvasSize { get; }
 		float ScaleFactor { get; }
 		int Dpi { get; }
@@ -45,6 +47,8 @@ namespace UniversalGraphics
 
 		void DrawRoundedRectangle(float x, float y, float width, float height, float radiusX, float radiusY, UGColor color, float strokeWidth);
 		void DrawRoundedRectangle(float x, float y, float width, float height, float radiusX, float radiusY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle);
+
+		void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color);
 
 		void DrawImage(IUGCanvasImage image, float x, float y);
 		void DrawImage(IUGCanvasImage image, float x, float y, float width, float height);
@@ -443,6 +447,14 @@ namespace UniversalGraphics
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void DrawRoundedRectangle(this IUGContext context, UGRect rect, float radiusX, float radiusY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
 			=> context.DrawRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, radiusX, radiusY, color, strokeWidth, strokeStyle);
+
+		#endregion
+
+		#region DrawTextLayout
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void DrawTextLayout(this IUGContext context, IUGTextLayout textLayout, Vector2 point, UGColor color)
+			=> context.DrawTextLayout(textLayout, point.X, point.Y, color);
 
 		#endregion
 
