@@ -120,7 +120,6 @@ namespace UniversalGraphics.Droid2D
 				{
 					_LayoutBounds.Y = Math.Max(0F, (_requestedSize.Height - _LayoutBounds.Height) / 2F);
 				}
-				_LayoutBounds.Height = Math.Max(_LayoutBounds.Height, _requestedSize.Height);
 			}
 		}
 

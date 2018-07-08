@@ -106,7 +106,6 @@ namespace UniversalGraphics.Wpf
 				{
 					_LayoutBounds.X = Math.Max(0F, (_requestedSize.Width - _LayoutBounds.Width) / 2F);
 				}
-				_LayoutBounds.Width = Math.Max(_LayoutBounds.Width, _requestedSize.Width);
 			}
 			if (VerticalAlignment != UGVerticalAlignment.Top)
 			{
@@ -118,7 +117,6 @@ namespace UniversalGraphics.Wpf
 				{
 					_LayoutBounds.Y = Math.Max(0F, (_requestedSize.Height - _LayoutBounds.Height) / 2F);
 				}
-				_LayoutBounds.Height = Math.Max(_LayoutBounds.Height, _requestedSize.Height);
 			}
 			else
 			{
