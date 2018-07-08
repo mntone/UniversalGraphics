@@ -1,6 +1,18 @@
 ﻿using System;
 using System.Numerics;
 
+#if WINDOWS_APP || WINDOWS_PHONE_APP || WINDOWS_UWP
+using UniversalGraphics.Win2D;
+#elif WINDOWS_WPF
+using UniversalGraphics.Wpf;
+#elif __ANDROID__
+using UniversalGraphics.Droid2D;
+#elif __MACOS__ || __IOS__ || __TVOS__ || __WATCHOS__
+using UniversalGraphics.Quartz2D;
+#else
+using UniversalGraphics.GdiPlus;
+#endif
+
 namespace UniversalGraphics.Test.Delegates
 {
 	public sealed class TransformCanvasViewDelegate : IUGCanvasViewDelegate
@@ -14,6 +26,7 @@ namespace UniversalGraphics.Test.Delegates
 		private readonly UGColor BLACK = new UGColor(0, 0, 0);
 		private readonly UGColor BLUE = new UGColor(0, 0, 255);
 		private readonly UGStrokeStyle STYLE = new UGStrokeStyle() { DashStyle = new UGDashStyle(UGDashStyle.Type.Dash) };
+		private readonly UGTextFormat FORMAT = new UGTextFormat() { FontSize = 16F };
 
 		public void OnDraw(IUGContext context)
 		{
@@ -108,6 +121,33 @@ namespace UniversalGraphics.Test.Delegates
 							FillRectangle(context, size, color);
 						}
 						DrawRectangle(context, size);
+
+						string label = null;
+						switch (d)
+						{
+							case 0: label = "Identity"; break;
+							case 1: label = "ScaleX(0.5)"; break;
+							case 2: label = "ScaleY(0.5)"; break;
+							case 3: label = "Scale(0.25, 0.5)"; break;
+							case 4: label = "Rotate(25°)"; break;
+							case 5: label = "Rotate(45°)"; break;
+							case 6: label = "SkewX(20°)"; break;
+							case 7: label = "SkewY(40°)"; break;
+							case 8: label = "Skew(5°, 10°)"; break;
+							case 9: label = "TranslateX(10)"; break;
+							case 10: label = "TranslateY(10)"; break;
+							case 11: label = "Translate(5, 10)"; break;
+							case 12: label = "Rotate(20°, C)"; break;
+							case 13: label = "SkewX(20°, C)"; break;
+							case 14: label = "Scale(0.25, 0.5, C)"; break;
+							case 15: label = "Matrix"; break;
+						}
+						using (var layout = new UGTextLayout(context, label, FORMAT, new UGSize(size.Width - 2F * MARGIN, size.Height - 2F * MARGIN)))
+						{
+							layout.HorizontalAlignment = UGHorizontalAlignment.Center;
+							layout.VerticalAlignment = UGVerticalAlignment.Center;
+							DrawText(context, layout);
+						}
 					}
 				}
 			}
@@ -121,6 +161,11 @@ namespace UniversalGraphics.Test.Delegates
 		private void DrawRectangle(IUGContext context, UGSize size)
 		{
 			context.DrawRectangle(MARGIN, MARGIN, size.Width - 2 * MARGIN, size.Height - 2 * MARGIN, BLACK, 2F, STYLE);
+		}
+
+		private void DrawText(IUGContext context, IUGTextLayout layout)
+		{
+			context.DrawTextLayout(layout, MARGIN, MARGIN, BLACK);
 		}
 	}
 }
