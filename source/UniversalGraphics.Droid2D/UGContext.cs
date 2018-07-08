@@ -25,7 +25,7 @@ namespace UniversalGraphics.Droid2D
 			_disposeAction = disposeAction;
 
 			_context = new Paint();
-			_context.Flags |= PaintFlags.AntiAlias;
+			Antialiasing = true;
 		}
 
 		public void Dispose()
@@ -41,8 +41,8 @@ namespace UniversalGraphics.Droid2D
 
 		public bool Antialiasing
 		{
-			get => _context.Flags.HasFlag(PaintFlags.AntiAlias);
-			set => _context.Flags |= PaintFlags.AntiAlias;
+			get => _context.AntiAlias;
+			set => _context.AntiAlias = value;
 		}
 
 		public UGTextAntialiasing TextAntialiasing { get; set; }
