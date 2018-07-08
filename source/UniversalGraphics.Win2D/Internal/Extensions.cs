@@ -1,6 +1,7 @@
-﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Geometry;
+using Microsoft.Graphics.Canvas.Text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -314,5 +315,128 @@ namespace UniversalGraphics.Win2D
 
 		public static UGGradientStop[] ToUGGradientStop(this CanvasGradientStop[] winrtStops)
 			=> winrtStops.Select(s => new UGGradientStop(s.Color.ToUGColor(), s.Position)).ToArray();
+	}
+
+	internal static class UGTextAntialiasingExtensions
+	{
+		public static CanvasTextAntialiasing ToWin2DTextAntialiasing(this UGTextAntialiasing textAntialiasing)
+		{
+			switch (textAntialiasing)
+			{
+				case UGTextAntialiasing.Auto:
+					return CanvasTextAntialiasing.Auto;
+
+				case UGTextAntialiasing.Aliased:
+					return CanvasTextAntialiasing.Aliased;
+
+				case UGTextAntialiasing.Antialiased:
+					return CanvasTextAntialiasing.Grayscale;
+
+				case UGTextAntialiasing.SubpixelAntialiased:
+					return CanvasTextAntialiasing.ClearType;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+
+		public static UGTextAntialiasing ToUGTextAntialiasing(this CanvasTextAntialiasing textAntialiasing)
+		{
+			switch (textAntialiasing)
+			{
+				case CanvasTextAntialiasing.Auto:
+					return UGTextAntialiasing.Auto;
+
+				case CanvasTextAntialiasing.Aliased:
+					return UGTextAntialiasing.Aliased;
+
+				case CanvasTextAntialiasing.Grayscale:
+					return UGTextAntialiasing.Antialiased;
+
+				case CanvasTextAntialiasing.ClearType:
+					return UGTextAntialiasing.SubpixelAntialiased;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+	}
+
+	internal static class UGHorizontalAlignmentExtensions
+	{
+		public static CanvasHorizontalAlignment ToWin2DHorizontalAlignment(this UGHorizontalAlignment horizontalAlignment)
+		{
+			switch (horizontalAlignment)
+			{
+				case UGHorizontalAlignment.Left:
+					return CanvasHorizontalAlignment.Left;
+
+				case UGHorizontalAlignment.Right:
+					return CanvasHorizontalAlignment.Right;
+
+				case UGHorizontalAlignment.Center:
+					return CanvasHorizontalAlignment.Center;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+
+		public static UGHorizontalAlignment ToUGHorizontalAlignment(this CanvasHorizontalAlignment horizontalAlignment)
+		{
+			switch (horizontalAlignment)
+			{
+				case CanvasHorizontalAlignment.Left:
+					return UGHorizontalAlignment.Left;
+
+				case CanvasHorizontalAlignment.Right:
+					return UGHorizontalAlignment.Right;
+
+				case CanvasHorizontalAlignment.Center:
+					return UGHorizontalAlignment.Center;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+	}
+
+	internal static class UGVerticalAlignmentExtensions
+	{
+		public static CanvasVerticalAlignment ToWin2DVerticalAlignment(this UGVerticalAlignment verticalAlignment)
+		{
+			switch (verticalAlignment)
+			{
+				case UGVerticalAlignment.Top:
+					return CanvasVerticalAlignment.Top;
+
+				case UGVerticalAlignment.Bottom:
+					return CanvasVerticalAlignment.Bottom;
+
+				case UGVerticalAlignment.Center:
+					return CanvasVerticalAlignment.Center;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+
+		public static UGVerticalAlignment ToUGVerticalAlignment(this CanvasVerticalAlignment verticalAlignment)
+		{
+			switch (verticalAlignment)
+			{
+				case CanvasVerticalAlignment.Top:
+					return UGVerticalAlignment.Top;
+
+				case CanvasVerticalAlignment.Bottom:
+					return UGVerticalAlignment.Bottom;
+
+				case CanvasVerticalAlignment.Center:
+					return UGVerticalAlignment.Center;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
 	}
 }

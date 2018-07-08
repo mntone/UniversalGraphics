@@ -1,4 +1,4 @@
-﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas;
 using System;
 using Windows.Foundation;
 
@@ -46,6 +46,12 @@ namespace UniversalGraphics.Win2D
 		{
 			get => Native.Antialiasing == CanvasAntialiasing.Antialiased;
 			set => Native.Antialiasing = value ? CanvasAntialiasing.Antialiased : CanvasAntialiasing.Aliased;
+		}
+
+		public UGTextAntialiasing TextAntialiasing
+		{
+			get => Native.TextAntialiasing.ToUGTextAntialiasing();
+			set => Native.TextAntialiasing = value.ToWin2DTextAntialiasing();
 		}
 
 		public UGSize CanvasSize => new UGSize((float)_canvasSize.Width, (float)_canvasSize.Height);
@@ -147,6 +153,12 @@ namespace UniversalGraphics.Win2D
 
 		public void DrawRoundedRectangle(float x, float y, float width, float height, float radiusX, float radiusY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
 			=> Native.DrawRoundedRectangle(x, y, width, height, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+
+		public void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color)
+		{
+			var pTextLayout = (UGTextLayout)textLayout;
+			Native.DrawTextLayout(pTextLayout.Native, x, y, color.ToWinRTColor());
+		}
 
 		public void DrawImage(IUGCanvasImage image, float x, float y)
 		{
