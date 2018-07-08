@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Numerics;
@@ -25,7 +25,7 @@ namespace UniversalGraphics.GdiPlus
 			ScaleFactor = scale;
 			_colorService = colorService;
 			_disposeAction = disposeAction;
-
+			
 			native.CompositingQuality = CompositingQuality.HighQuality | CompositingQuality.GammaCorrected;
 			native.PixelOffsetMode = PixelOffsetMode.Half;
 			native.SmoothingMode = SmoothingMode.AntiAlias;
@@ -45,6 +45,12 @@ namespace UniversalGraphics.GdiPlus
 		{
 			get => Native.SmoothingMode == SmoothingMode.AntiAlias || Native.SmoothingMode == SmoothingMode.HighQuality;
 			set => Native.SmoothingMode = value ? SmoothingMode.AntiAlias : SmoothingMode.None;
+		}
+
+		public UGTextAntialiasing TextAntialiasing
+		{
+			get => Native.TextRenderingHint.ToUGTextAntialiasing();
+			set => Native.TextRenderingHint = value.ToGDITextAntialiasing();
 		}
 
 		public UGSize CanvasSize { get; }
@@ -262,6 +268,12 @@ namespace UniversalGraphics.GdiPlus
 				pen.SetStrokeStyle(strokeStyle);
 				Native.DrawPath(pen, path);
 			}
+		}
+
+		public void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color)
+		{
+			var pTextLayout = (UGTextLayout)textLayout;
+			pTextLayout.Draw(Native, x, y, color.ToGDIColor(), ScaleFactor);
 		}
 
 		public void DrawImage(IUGCanvasImage image, float x, float y)

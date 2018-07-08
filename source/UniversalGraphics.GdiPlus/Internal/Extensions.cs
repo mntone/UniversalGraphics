@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Linq;
 using System.Numerics;
 
@@ -86,6 +87,15 @@ namespace UniversalGraphics.GdiPlus
 
 		public static Vector2 ToVector(this PointF point)
 			=> new Vector2(point.X, point.Y);
+	}
+
+	public static class UGSizeExtensions
+	{
+		public static Size ToGDISize(this UGSize size)
+			=> new Size((int)(size.Width +.5F), (int)(size.Height + .5F));
+
+		public static UGSize ToUGSize(this Size size)
+			=> new UGSize(size.Width, size.Height);
 	}
 
 	public static class UGRectExtensions
@@ -395,6 +405,51 @@ namespace UniversalGraphics.GdiPlus
 				ugStops[i] = new UGGradientStop(color.ToUGColor(), position);
 			}
 			return ugStops;
+		}
+	}
+
+	internal static class UGTextAntialiasingExtensions
+	{
+		public static TextRenderingHint ToGDITextAntialiasing(this UGTextAntialiasing textAntialiasing)
+		{
+			switch (textAntialiasing)
+			{
+				case UGTextAntialiasing.Auto:
+					return TextRenderingHint.SystemDefault;
+
+				case UGTextAntialiasing.Aliased:
+					return TextRenderingHint.SingleBitPerPixelGridFit;
+
+				case UGTextAntialiasing.Antialiased:
+					return TextRenderingHint.AntiAliasGridFit;
+
+				case UGTextAntialiasing.SubpixelAntialiased:
+					return TextRenderingHint.ClearTypeGridFit;
+
+				default:
+					throw new NotSupportedException();
+			}
+		}
+
+		public static UGTextAntialiasing ToUGTextAntialiasing(this TextRenderingHint textAntialiasing)
+		{
+			switch (textAntialiasing)
+			{
+				case TextRenderingHint.SystemDefault:
+					return UGTextAntialiasing.Auto;
+
+				case TextRenderingHint.SingleBitPerPixelGridFit:
+					return UGTextAntialiasing.SubpixelAntialiased;
+
+				case TextRenderingHint.AntiAliasGridFit:
+					return UGTextAntialiasing.Antialiased;
+
+				case TextRenderingHint.ClearTypeGridFit:
+					return UGTextAntialiasing.Aliased;
+
+				default:
+					throw new NotSupportedException();
+			}
 		}
 	}
 }
