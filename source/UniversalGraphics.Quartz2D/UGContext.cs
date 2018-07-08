@@ -36,9 +36,17 @@ namespace UniversalGraphics.Quartz2D
 
 		public bool Antialiasing
 		{
-			get => throw new NotSupportedException();
-			set => Native.SetAllowsAntialiasing(value);
+			get => _Antialiasing;
+			set
+			{
+				if (_Antialiasing != value)
+				{
+					_Antialiasing = value;
+					Native.SetShouldAntialias(value);
+				}
+			}
 		}
+		private bool _Antialiasing = true;
 
 		public UGSize CanvasSize => new UGSize((float)_canvasRect.Width, (float)_canvasRect.Height);
 		public float ScaleFactor { get; }
