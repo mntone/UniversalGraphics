@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 
 namespace UniversalGraphics
 {
@@ -27,6 +27,17 @@ namespace UniversalGraphics
 			A = a;
 		}
 
+		public UGColor(byte a, UGColor color)
+		{
+			ColorAsInt = 0;
+			B = 0;
+			G = 0;
+			R = 0;
+
+			Color = color.Color;
+			A = a;
+		}
+
 		private const float ONE_SIXTH = 1F / 6F;
 		private const float ONE_THIRD = 1F / 3F;
 		private const float TWO_THIRD = 2F / 3F;
@@ -46,7 +57,7 @@ namespace UniversalGraphics
 			byte r, g, b;
 			if (s == 0F)
 			{
-				byte l2 = (byte)(255F * l);
+				var l2 = (byte)(255F * l);
 				r = l2;
 				g = l2;
 				b = l2;
