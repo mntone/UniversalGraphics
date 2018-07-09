@@ -1,6 +1,8 @@
 using Microsoft.Graphics.Canvas;
 using System;
 using Windows.Foundation;
+using System.Collections.Generic;
+using System.Linq;
 
 #if WINDOWS_APP || WINDOWS_PHONE_APP
 using Microsoft.Graphics.Canvas.Numerics;
@@ -91,6 +93,41 @@ namespace UniversalGraphics.Win2D
 
 		public void DrawLine(float startX, float startY, float endX, float endY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
 			=> Native.DrawLine(startX, startY, endX, endY, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var native = Native;
+			var current = points.First();
+			foreach (var next in points.Skip(1))
+			{
+				native.DrawLine(current.X, current.Y, next.X, next.Y, color.ToWinRTColor(), strokeWidth);
+				current = next;
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var native = Native;
+			var style = strokeStyle.ToWin2DStrokeStyle();
+			var current = points.First();
+			foreach (var next in points.Skip(1))
+			{
+				native.DrawLine(current.X, current.Y, next.X, next.Y, color.ToWinRTColor(), strokeWidth, style);
+				current = next;
+			}
+		}
 
 		public void DrawCircle(float centerX, float centerY, float radius, UGColor color, float strokeWidth)
 			=> Native.DrawCircle(centerX, centerY, radius, color.ToWinRTColor(), strokeWidth);

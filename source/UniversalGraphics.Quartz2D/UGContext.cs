@@ -1,5 +1,7 @@
 using CoreGraphics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace UniversalGraphics.Quartz2D
@@ -163,6 +165,53 @@ namespace UniversalGraphics.Quartz2D
 					native.SetStrokeColor(nativeColor);
 					native.SetLineWidth(strokeWidth);
 					native.StrokeLineSegments(new[] { new CGPoint(startX, startY), new CGPoint(endX, endY) });
+				}
+				finally { native.RestoreState(); }
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var native = Native;
+			var nativePoints = points.Select(p => new CGPoint(p.X, p.Y)).SelectMany(p => new[] { p, p }).Skip(1).SkipLast(1).ToArray();
+			using (var nativeColor = color.ToCGColor())
+			{
+				try
+				{
+					native.SaveState();
+					native.SetStrokeColor(nativeColor);
+					native.SetLineWidth(strokeWidth);
+					native.StrokeLineSegments(nativePoints);
+				}
+				finally { native.RestoreState(); }
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var native = Native;
+			var nativePoints = points.Select(p => new CGPoint(p.X, p.Y)).SelectMany(p => new[] { p, p }).Skip(1).SkipLast(1).ToArray();
+			using (var nativeColor = color.ToCGColor())
+			{
+				try
+				{
+					native.SaveState();
+					native.SetStrokeColor(nativeColor);
+					native.SetLineWidth(strokeWidth);
+					native.SetStrokeStyle(strokeWidth, strokeStyle);
+					native.StrokeLineSegments(nativePoints);
 				}
 				finally { native.RestoreState(); }
 			}

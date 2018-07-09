@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Windows;
 using System.Windows.Media;
@@ -110,6 +111,51 @@ namespace UniversalGraphics.Wpf
 			var point1 = new Point(startX, startY);
 			var point2 = new Point(endX, endY);
 			Native.DrawLine(pen, point1, point2);
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var brush = new SolidColorBrush(color.ToWPFColor());
+			var pen = new Pen(brush, strokeWidth);
+
+			var native = Native;
+			var current = points.First();
+			var currentPoint = new Point(current.X, current.Y);
+			foreach (var next in points.Skip(1))
+			{
+				var nextPoint = new Point(next.X, next.Y);
+				native.DrawLine(pen, currentPoint, nextPoint);
+				currentPoint = nextPoint;
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var brush = new SolidColorBrush(color.ToWPFColor());
+			var pen = new Pen(brush, strokeWidth);
+			pen.SetStrokeStyle(strokeStyle);
+
+			var native = Native;
+			var current = points.First();
+			var currentPoint = new Point(current.X, current.Y);
+			foreach (var next in points.Skip(1))
+			{
+				var nextPoint = new Point(next.X, next.Y);
+				native.DrawLine(pen, currentPoint, nextPoint);
+				currentPoint = nextPoint;
+			}
 		}
 
 		public void DrawCircle(float centerX, float centerY, float radius, UGColor color, float strokeWidth)

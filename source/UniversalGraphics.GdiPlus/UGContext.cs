@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -96,6 +98,39 @@ namespace UniversalGraphics.GdiPlus
 			{
 				pen.SetStrokeStyle(strokeStyle);
 				Native.DrawLine(pen, startX, startY, endX, endY);
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var nativePoints = points.Select(p => p.ToGDIPointF()).ToArray();
+			var translatedColor = _colorService.GetTranslatedColor(color);
+			using (var pen = new Pen(translatedColor, strokeWidth))
+			{
+				Native.DrawLines(pen, nativePoints);
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			var nativePoints = points.Select(p => p.ToGDIPointF()).ToArray();
+			var translatedColor = _colorService.GetTranslatedColor(color);
+			using (var pen = new Pen(translatedColor, strokeWidth))
+			{
+				pen.SetStrokeStyle(strokeStyle);
+				Native.DrawLines(pen, nativePoints);
 			}
 		}
 

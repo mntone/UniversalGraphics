@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -24,6 +25,9 @@ namespace UniversalGraphics
 
 		void DrawLine(float startX, float startY, float endX, float endY, UGColor color, float strokeWidth);
 		void DrawLine(float startX, float startY, float endX, float endY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle);
+
+		void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth);
+		void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle);
 
 		void DrawCircle(float centerX, float centerY, float radius, UGColor color, float strokeWidth);
 		void DrawCircle(float centerX, float centerY, float radius, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle);
@@ -131,6 +135,14 @@ namespace UniversalGraphics
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void DrawLine(this IUGContext context, Vector2 start, Vector2 end, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
 			=> context.DrawLine(start.X, start.Y, end.X, end.Y, color, strokeWidth, strokeStyle);
+
+		#endregion
+
+		#region DrawLines
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void DrawLines(this IUGContext context, IEnumerable<Vector2> points, UGColor color)
+			=> context.DrawLines(points, color, 1F);
 
 		#endregion
 

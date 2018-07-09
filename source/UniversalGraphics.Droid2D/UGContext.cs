@@ -1,6 +1,8 @@
 using Android.Graphics;
 using Android.OS;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace UniversalGraphics.Droid2D
@@ -178,6 +180,61 @@ namespace UniversalGraphics.Droid2D
 				else
 				{
 					Native.DrawLine(startX, startY, endX, endY, paint);
+				}
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+			
+			var nativePoints = points.SelectMany(p => new[] { p, p }).Skip(1).SkipLast(1).SelectMany(p => new[] { p.X, p.Y }).ToArray();
+			using (var paint = new Paint())
+			{
+				paint.Set(_context);
+				paint.Color = color.ToAGColor();
+				paint.SetStyle(Paint.Style.Stroke);
+				paint.StrokeWidth = strokeWidth;
+				Native.DrawLines(nativePoints, paint);
+			}
+		}
+
+		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
+		{
+			var count = points.Count();
+			if (count < 2)
+			{
+				throw new ArgumentException(nameof(points));
+			}
+
+			using (var paint = new Paint())
+			{
+				paint.Set(_context);
+				paint.Color = color.ToAGColor();
+				paint.SetStyle(Paint.Style.Stroke);
+				paint.StrokeWidth = strokeWidth;
+				paint.SetStrokeStyle(strokeWidth, strokeStyle);
+				if (strokeStyle.DashStyle.Value != null)
+				{
+					using (var line = new Path())
+					{
+						var first = points.First();
+						line.MoveTo(first.X, first.Y);
+						foreach (var next in points.Skip(1))
+						{
+							line.LineTo(next.X, next.Y);
+						}
+						Native.DrawPath(line, paint);
+					}
+				}
+				else
+				{
+					var nativePoints = points.SelectMany(p => new[] { p, p }).Skip(1).SkipLast(1).SelectMany(p => new[] { p.X, p.Y }).ToArray();
+					Native.DrawLines(nativePoints, paint);
 				}
 			}
 		}
