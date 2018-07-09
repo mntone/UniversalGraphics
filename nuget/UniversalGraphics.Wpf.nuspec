@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<!-- package -->
+		<id>UniversalGraphics.Wpf</id>
+		<title>UniversalGraphics.Wpf</title>
+		<version>0.9.0</version>
+		<description>UniversalGraphics use each suitable 2D graphics.</description>
+		<summary>UniversalGraphics implements each 2D graphics API. Draw 2D graphics with a C# source.</summary>
+		<projectUrl>https://github.com/mntone/UniversalGraphics</projectUrl>
+		<tags>graphics windows cross-platform wpf win32</tags>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="PresentationCore" />
+			<frameworkAssembly assemblyName="PresentationFramework" />
+			<frameworkAssembly assemblyName="WindowsBase" />
+		</frameworkAssemblies>
+		<dependencies>
+			<dependency id="UniversalGraphics" version="[0.9.0]" />
+		</dependencies>
+
+		<!-- legal -->
+		<licenseUrl>https://github.com/mntone/UniversalGraphics/blob/master/LICENSE.txt</licenseUrl>
+		<authors>mntone</authors>
+		<owners>mntone</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<copyright>Copyright © 2018 mntone</copyright>
+	</metadata>
+	<files>
+		<file src="../source/bin/UniversalGraphics.Wpf/Release/net45/UniversalGraphics.Wpf.dll" target="lib/net45" />
+		<file src="../source/bin/UniversalGraphics.Wpf/Release/net462/UniversalGraphics.Wpf.dll" target="lib/net462" />
+
+		<!-- legal -->
+		<file src="../LICENSE.txt" target="LICENSE.txt" />
+
+	</files>
+</package>

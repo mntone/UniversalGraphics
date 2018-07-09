@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<!-- package -->
+		<id>UniversalGraphics</id>
+		<title>UniversalGraphics</title>
+		<version>0.9.0</version>
+		<description>UniversalGraphics use each suitable 2D graphics.</description>
+		<summary>UniversalGraphics implements each 2D graphics API. Draw 2D graphics with a C# source.</summary>
+		<projectUrl>https://github.com/mntone/UniversalGraphics</projectUrl>
+		<tags>xamarin graphics ios android windows uwp tvos watchos macos cross-platform gdi+ wpf win32</tags>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="mscorlib" />
+			<frameworkAssembly assemblyName="System" />
+			<frameworkAssembly assemblyName="System.Core" />
+			<frameworkAssembly assemblyName="System.Numerics" targetFramework="MonoAndroid" />
+			<frameworkAssembly assemblyName="System.Numerics" targetFramework="net45" />
+			<frameworkAssembly assemblyName="System.Numerics" targetFramework="Xamarin.iOS" />
+			<frameworkAssembly assemblyName="System.Numerics" targetFramework="Xamarin.TVOS" />
+			<frameworkAssembly assemblyName="System.Numerics" targetFramework="Xamarin.WatchOS" />
+			<frameworkAssembly assemblyName="System.Numerics" targetFramework="Xamarin.Mac20" />
+		</frameworkAssemblies>
+		<dependencies>
+			<group targetFramework="netstandard1.0">
+				<dependency id="System.Numerics.Vectors" version="[4.3.0,]" />
+			</group>
+			<group targetFramework="uap10.0">
+				<dependency id="System.Numerics.Vectors" version="[4.3.0,]" />
+				<dependency id="Win2D.uwp" version="[1.10.0,1.22.0]" />
+			</group>
+			<group targetFramework="uap10.0.17134">
+				<dependency id="System.Numerics.Vectors" version="[4.3.0,]" />
+				<dependency id="Win2D.uwp" version="[1.23.0,]" />
+			</group>
+		</dependencies>
+
+		<!-- legal -->
+		<licenseUrl>https://github.com/mntone/UniversalGraphics/blob/master/LICENSE.txt</licenseUrl>
+		<authors>mntone</authors>
+		<owners>mntone</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<copyright>Copyright © 2018 mntone</copyright>
+	</metadata>
+	<files>
+		<file src="../source/bin/UniversalGraphics/Release/netstandard1.0/UniversalGraphics.Core.dll" target="lib/netstandard1.0" />
+
+		<file src="../source/bin/UniversalGraphics/Release/netstandard1.0/UniversalGraphics.Core.dll" target="lib/net45" />
+
+		<file src="../source/bin/UniversalGraphics.Droid2D/Release/monoandroid81/UniversalGraphics.Core.dll" target="lib/MonoAndroid" />
+		<file src="../source/bin/UniversalGraphics.Droid2D/Release/monoandroid81/UniversalGraphics.Droid2D.dll" target="lib/MonoAndroid" />
+
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.ios10/UniversalGraphics.Core.dll" target="lib/Xamarin.iOS" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.ios10/UniversalGraphics.Quartz2D.dll" target="lib/Xamarin.iOS" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.tvos10/UniversalGraphics.Core.dll" target="lib/Xamarin.TVOS" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.tvos10/UniversalGraphics.Quartz2D.dll" target="lib/Xamarin.TVOS" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.watchos10/UniversalGraphics.Core.dll" target="lib/Xamarin.WatchOS" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.watchos10/UniversalGraphics.Quartz2D.dll" target="lib/Xamarin.WatchOS" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.mac20/UniversalGraphics.Core.dll" target="lib/Xamarin.Mac20" />
+		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.mac20/UniversalGraphics.Quartz2D.dll" target="lib/Xamarin.Mac20" />
+
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Core.dll" target="lib/uap10.0" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Win2D.dll" target="lib/uap10.0" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Win2D.pri" target="lib/uap10.0" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Win2D.xr.xml" target="lib/uap10.0" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UGCanvasControlBase.xbf" target="lib/uap10.0" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/Themes/Generic.xbf" target="lib/uap10.0/Themes" />
+
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0.17134/UniversalGraphics.Core.dll" target="lib/uap10.0.17134" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0.17134/UniversalGraphics.Win2D.dll" target="lib/uap10.0.17134" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0.17134/UniversalGraphics.Win2D.pri" target="lib/uap10.0.17134" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0.17134/UniversalGraphics.Win2D.xr.xml" target="lib/uap10.0.17134" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0.17134/UGCanvasControlBase.xbf" target="lib/uap10.0.17134" />
+		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0.17134/Themes/Generic.xbf" target="lib/uap10.0.17134/Themes" />
+
+		<!-- legal -->
+		<file src="../LICENSE.txt" target="LICENSE.txt" />
+
+	</files>
+</package>
