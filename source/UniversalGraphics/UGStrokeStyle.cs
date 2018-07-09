@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -32,7 +32,7 @@ namespace UniversalGraphics
 			DashDotDot,
 		}
 
-		public float[] _Value;
+		private float[] _Value;
 
 		public UGDashStyle(float[] dashStyle)
 		{
