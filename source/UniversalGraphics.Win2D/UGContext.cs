@@ -92,7 +92,12 @@ namespace UniversalGraphics.Win2D
 			=> Native.DrawLine(startX, startY, endX, endY, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawLine(float startX, float startY, float endX, float endY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawLine(startX, startY, endX, endY, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawLine(startX, startY, endX, endY, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawLines(IEnumerable<Vector2> points, UGColor color, float strokeWidth)
 		{
@@ -120,12 +125,14 @@ namespace UniversalGraphics.Win2D
 			}
 
 			var native = Native;
-			var style = strokeStyle.ToWin2DStrokeStyle();
-			var current = points.First();
-			foreach (var next in points.Skip(1))
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
 			{
-				native.DrawLine(current.X, current.Y, next.X, next.Y, color.ToWinRTColor(), strokeWidth, style);
-				current = next;
+				var current = points.First();
+				foreach (var next in points.Skip(1))
+				{
+					native.DrawLine(current.X, current.Y, next.X, next.Y, color.ToWinRTColor(), strokeWidth, style);
+					current = next;
+				}
 			}
 		}
 
@@ -133,7 +140,12 @@ namespace UniversalGraphics.Win2D
 			=> Native.DrawCircle(centerX, centerY, radius, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawCircle(float centerX, float centerY, float radius, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawCircle(centerX, centerY, radius, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawCircle(centerX, centerY, radius, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawCircleInRectangle(float x, float y, float length, UGColor color, float strokeWidth)
 		{
@@ -144,14 +156,22 @@ namespace UniversalGraphics.Win2D
 		public void DrawCircleInRectangle(float x, float y, float length, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
 		{
 			var radius = length / 2F;
-			Native.DrawEllipse(x + radius, y + radius, radius, radius, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawEllipse(x + radius, y + radius, radius, radius, color.ToWinRTColor(), strokeWidth, style);
+			}
 		}
 
 		public void DrawEllipse(float centerX, float centerY, float radiusX, float radiusY, UGColor color, float strokeWidth)
 			=> Native.DrawEllipse(centerX, centerY, radiusX, radiusY, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawEllipse(float centerX, float centerY, float radiusX, float radiusY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawEllipse(centerX, centerY, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawEllipse(centerX, centerY, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawEllipseInRectangle(float x, float y, float width, float height, UGColor color, float strokeWidth)
 		{
@@ -164,32 +184,55 @@ namespace UniversalGraphics.Win2D
 		{
 			var radiusX = width / 2F;
 			var radiusY = height / 2F;
-			Native.DrawEllipse(x + radiusX, y + radiusY, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawEllipse(x + radiusX, y + radiusY, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, style);
+			}
 		}
 
 		public void DrawPath(IUGPath path, UGColor color, float strokeWidth)
 			=> Native.DrawGeometry(((UGPath)path).Native, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawPath(IUGPath path, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawGeometry(((UGPath)path).Native, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawGeometry(((UGPath)path).Native, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawPath(IUGPath path, float x, float y, UGColor color, float strokeWidth)
 			=> Native.DrawGeometry(((UGPath)path).Native, x, y, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawPath(IUGPath path, float x, float y, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawGeometry(((UGPath)path).Native, x, y, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawGeometry(((UGPath)path).Native, x, y, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawRectangle(float x, float y, float width, float height, UGColor color, float strokeWidth)
 			=> Native.DrawRectangle(x, y, width, height, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawRectangle(float x, float y, float width, float height, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawRectangle(x, y, width, height, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawRectangle(x, y, width, height, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawRoundedRectangle(float x, float y, float width, float height, float radiusX, float radiusY, UGColor color, float strokeWidth)
 			=> Native.DrawRoundedRectangle(x, y, width, height, radiusX, radiusY, color.ToWinRTColor(), strokeWidth);
 
 		public void DrawRoundedRectangle(float x, float y, float width, float height, float radiusX, float radiusY, UGColor color, float strokeWidth, UGStrokeStyle strokeStyle)
-			=> Native.DrawRoundedRectangle(x, y, width, height, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, strokeStyle.ToWin2DStrokeStyle());
+		{
+			using (var style = strokeStyle.ToWin2DStrokeStyle())
+			{
+				Native.DrawRoundedRectangle(x, y, width, height, radiusX, radiusY, color.ToWinRTColor(), strokeWidth, style);
+			}
+		}
 
 		public void DrawTextLayout(IUGTextLayout textLayout, float x, float y, UGColor color)
 		{
