@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -22,6 +22,14 @@ namespace UniversalGraphics.GdiPlus
 		public UGFactory(UGContext context) => _context = context;
 
 		public IUGPath CreatePath() => new UGPath(_context);
+
+		public IUGTextFormat CreateTextFormat() => new UGTextFormat();
+
+		public IUGTextLayout CreateTextLayout(string textString, IUGTextFormat textFormat)
+			=> new UGTextLayout(_context, textString, textFormat);
+
+		public IUGTextLayout CreateTextLayout(string textString, IUGTextFormat textFormat, UGSize requestedSize)
+			=> new UGTextLayout(_context, textString, textFormat, requestedSize);
 
 		public IUGSolidColorBrush CreateSolidColorBrush(UGColor color) => new UGSolidColorBrush(_context, color);
 
