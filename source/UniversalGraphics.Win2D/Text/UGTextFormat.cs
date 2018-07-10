@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using Microsoft.Graphics.Canvas.Text;
+using Windows.UI.Text;
 
 namespace UniversalGraphics.Win2D
 {
@@ -43,6 +44,11 @@ namespace UniversalGraphics.Win2D
 		{
 			get => _native.FontSize;
 			set => _native.FontSize = value;
+		}
+		public bool IsItalic
+		{
+			get => _native.FontStyle != FontStyle.Normal;
+			set => _native.FontStyle = FontStyle.Italic;
 		}
 	}
 }

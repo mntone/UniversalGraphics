@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media;
 
 namespace UniversalGraphics.Wpf
@@ -38,9 +39,14 @@ namespace UniversalGraphics.Wpf
 		{
 			if (_native == null)
 			{
-				var typeface = !string.IsNullOrEmpty(FontFamily)
-					? new Typeface(FontFamily)
-					: new Typeface("Segoe UI");
+				var fontFamily = !string.IsNullOrEmpty(FontFamily)
+					? new FontFamily(FontFamily)
+					: new FontFamily("Segoe UI");
+				var typeface = new Typeface(
+					fontFamily,
+					IsItalic ? FontStyles.Italic : FontStyles.Normal,
+					FontWeights.Normal,
+					FontStretches.Normal);
 				if (!typeface.TryGetGlyphTypeface(out var glyphTypeface))
 				{
 					throw new NotSupportedException();
@@ -65,5 +71,19 @@ namespace UniversalGraphics.Wpf
 		private string _FontFamily;
 
 		public float FontSize { get; set; }
+
+		public bool IsItalic
+		{
+			get => _IsItalic;
+			set
+			{
+				if (_IsItalic != value)
+				{
+					_IsItalic = value;
+					InvalidateTypeface();
+				}
+			}
+		}
+		private bool _IsItalic;
 	}
 }

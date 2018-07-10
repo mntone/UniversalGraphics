@@ -58,13 +58,39 @@ namespace UniversalGraphics.Quartz2D
 			if (_native == null)
 			{
 #if __MACOS__
-				_native = !string.IsNullOrEmpty(FontFamily)
-					? NSFont.FromFontName(FontFamily, FontSize)
-					: NSFont.SystemFontOfSize(FontSize);
+				using (var descriptor = !string.IsNullOrEmpty(FontFamily)
+					? NSFontDescriptor.FromNameSize(FontFamily, FontSize)
+					: new NSFontDescriptor())
+				{
+					if (IsItalic)
+					{
+						using (var descriptor2 = descriptor.FontDescriptorWithSymbolicTraits(NSFontSymbolicTraits.ItalicTrait))
+						{
+							_native = NSFont.FromDescription(descriptor2, FontSize);
+						}
+					}
+					else
+					{
+						_native = NSFont.FromDescription(descriptor, FontSize);
+					}
+				}
 #else
-				_native = !string.IsNullOrEmpty(FontFamily)
-					? UIFont.FromName(FontFamily, FontSize)
-					: UIFont.SystemFontOfSize(FontSize);
+				using (var descriptor = !string.IsNullOrEmpty(FontFamily)
+					? UIFontDescriptor.FromName(FontFamily, FontSize)
+					: new UIFontDescriptor())
+				{
+					if (IsItalic)
+					{
+						using (var descriptor2 = descriptor.CreateWithTraits(UIFontDescriptorSymbolicTraits.Italic))
+						{
+							_native = UIFont.FromDescriptor(descriptor2, FontSize);
+						}
+					}
+					else
+					{
+						_native = UIFont.FromDescriptor(descriptor, FontSize);
+					}
+				}
 #endif
 			}
 			return _native;
@@ -97,5 +123,19 @@ namespace UniversalGraphics.Quartz2D
 			}
 		}
 		private float _FontSize;
+
+		public bool IsItalic
+		{
+			get => _IsItalic;
+			set
+			{
+				if (_IsItalic != value)
+				{
+					_IsItalic = value;
+					InvalidateFont();
+				}
+			}
+		}
+		private bool _IsItalic;
 	}
 }

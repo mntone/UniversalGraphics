@@ -4,5 +4,6 @@ namespace UniversalGraphics
     {
 		string FontFamily { get; set; }
 		float FontSize { get; set; }
+		bool IsItalic { get; set; }
     }
 }

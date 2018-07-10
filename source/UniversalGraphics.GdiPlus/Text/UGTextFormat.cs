@@ -57,7 +57,7 @@ namespace UniversalGraphics.GdiPlus
 				_fontFamily = !string.IsNullOrEmpty(FontFamily)
 					? new FontFamily(FontFamily)
 					: new FontFamily(GenericFontFamilies.SansSerif);
-				_native = new Font(_fontFamily, FontSize);
+				_native = new Font(_fontFamily, FontSize, IsItalic ? FontStyle.Italic : FontStyle.Regular);
 			}
 			return _native;
 		}
@@ -89,5 +89,19 @@ namespace UniversalGraphics.GdiPlus
 			}
 		}
 		private float _FontSize;
+
+		public bool IsItalic
+		{
+			get => _IsItalic;
+			set
+			{
+				if (_IsItalic != value)
+				{
+					_IsItalic = value;
+					InvalidateFont();
+				}
+			}
+		}
+		private bool _IsItalic;
 	}
 }

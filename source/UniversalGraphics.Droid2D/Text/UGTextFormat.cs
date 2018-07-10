@@ -35,6 +35,14 @@ namespace UniversalGraphics.Droid2D
 			GC.SuppressFinalize(this);
 		}
 
+		private void SetFont()
+		{
+			using (var typeface = Typeface.Create(_FontFamily, IsItalic ? TypefaceStyle.Italic : TypefaceStyle.Normal))
+			{
+				_native.SetTypeface(typeface);
+			}
+		}
+
 		public string FontFamily
 		{
 			get => _FontFamily;
@@ -43,11 +51,7 @@ namespace UniversalGraphics.Droid2D
 				if (_FontFamily != value)
 				{
 					_FontFamily = value;
-
-					using (var typeface = Typeface.Create(_FontFamily, TypefaceStyle.Normal))
-					{
-						_native.SetTypeface(typeface);
-					}
+					SetFont();
 				}
 			}
 		}
@@ -58,5 +62,19 @@ namespace UniversalGraphics.Droid2D
 			get => _native.TextSize;
 			set => _native.TextSize = value;
 		}
+
+		public bool IsItalic
+		{
+			get => _IsItalic;
+			set
+			{
+				if (_IsItalic != value)
+				{
+					_IsItalic = value;
+					SetFont();
+				}
+			}
+		}
+		private bool _IsItalic;
 	}
 }
