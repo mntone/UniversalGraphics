@@ -58,6 +58,41 @@
 		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.mac20/UniversalGraphics.Core.dll" target="lib/Xamarin.Mac20" />
 		<file src="../source/bin/UniversalGraphics.Quartz2D/Release/xamarin.mac20/UniversalGraphics.Quartz2D.dll" target="lib/Xamarin.Mac20" />
 
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x86/Release/UniversalGraphics.Core(win81).dll" target="lib/win81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x86/Release/UniversalGraphics.Win2D.dll" target="lib/win81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x86/Release/UniversalGraphics.Win2D.pri" target="lib/win81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x86/Release/UniversalGraphics.Win2D.xr.xml" target="lib/win81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x86/Release/UGCanvasControlBase.xbf" target="lib/win81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x86/Release/Themes/Generic.xbf" target="lib/win81/x86/Themes" />
+
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x64/Release/UniversalGraphics.Core(win81).dll" target="lib/win81/x64" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x64/Release/UniversalGraphics.Win2D.dll" target="lib/win81/x64" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x64/Release/UniversalGraphics.Win2D.pri" target="lib/win81/x64" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x64/Release/UniversalGraphics.Win2D.xr.xml" target="lib/win81/x64" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x64/Release/UGCanvasControlBase.xbf" target="lib/win81/x64" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/x64/Release/Themes/Generic.xbf" target="lib/win81/x64/Themes" />
+
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/ARM/Release/UniversalGraphics.Core(win81).dll" target="lib/win81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/ARM/Release/UniversalGraphics.Win2D.dll" target="lib/win81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/ARM/Release/UniversalGraphics.Win2D.pri" target="lib/win81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/ARM/Release/UniversalGraphics.Win2D.xr.xml" target="lib/win81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/ARM/Release/UGCanvasControlBase.xbf" target="lib/win81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(win81)/ARM/Release/Themes/Generic.xbf" target="lib/win81/ARM/Themes" />
+
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/x86/Release/UniversalGraphics.Core(wpa81).dll" target="lib/wpa81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/x86/Release/UniversalGraphics.Win2D.dll" target="lib/wpa81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/x86/Release/UniversalGraphics.Win2D.pri" target="lib/wpa81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/x86/Release/UniversalGraphics.Win2D.xr.xml" target="lib/wpa81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/x86/Release/UGCanvasControlBase.xbf" target="lib/wpa81/x86" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/x86/Release/Themes/Generic.xbf" target="lib/wpa81/x86/Themes" />
+
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/ARM/Release/UniversalGraphics.Core(wpa81).dll" target="lib/wpa81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/ARM/Release/UniversalGraphics.Win2D.dll" target="lib/wpa81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/ARM/Release/UniversalGraphics.Win2D.pri" target="lib/wpa81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/ARM/Release/UniversalGraphics.Win2D.xr.xml" target="lib/wpa81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/ARM/Release/UGCanvasControlBase.xbf" target="lib/wpa81/ARM" />
+		<file src="../source/bin/UniversalGraphics.Win2D(wpa81)/ARM/Release/Themes/Generic.xbf" target="lib/wpa81/ARM/Themes" />
+
 		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Core.dll" target="lib/uap10.0" />
 		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Win2D.dll" target="lib/uap10.0" />
 		<file src="../source/bin/UniversalGraphics.Win2D/Release/uap10.0/UniversalGraphics.Win2D.pri" target="lib/uap10.0" />

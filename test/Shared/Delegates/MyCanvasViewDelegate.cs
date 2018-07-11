@@ -1,5 +1,10 @@
 ﻿using System.Linq;
+
+#if WINDOWS_APP || WINDOWS_PHONE_APP
+using Microsoft.Graphics.Canvas.Numerics;
+#else
 using System.Numerics;
+#endif
 
 namespace UniversalGraphics.Test.Delegates
 {

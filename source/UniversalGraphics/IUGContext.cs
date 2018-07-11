@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Runtime.CompilerServices;
+
+#if WINDOWS_APP || WINDOWS_PHONE_APP
+using Microsoft.Graphics.Canvas.Numerics;
+#else
+using System.Numerics;
+#endif
 
 namespace UniversalGraphics
 {

@@ -11,12 +11,7 @@
     <AssemblyVersion>0.9.0.0</AssemblyVersion>
     <FileVersion>0.9.0.0</FileVersion>
     <OutputPath>..\bin\UniversalGraphics.Win2D\$(Configuration)\</OutputPath>
-    <Platforms>x86;x64;ARM</Platforms>
     <BuildDependsOn>$(BuildDependsOn);CopyFiles</BuildDependsOn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)' == 'wpa81'">
-    <Platforms>x86;ARM</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0'">
@@ -46,10 +41,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcore451' OR '$(TargetFramework)' == 'wpa81'">
-    <PackageReference Include="Win2D.win81" Version="1.21.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">

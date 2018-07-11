@@ -1,4 +1,4 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Diagnostics;
 using Windows.UI.Xaml;
@@ -69,7 +69,7 @@ namespace UniversalGraphics.Win2D
 		{
 			IsDesignMode = Windows.ApplicationModel.DesignMode.DesignModeEnabled;
 		}
-		
+
 		protected override void DrawOverride(IUGContext context)
 		{
 			if (IsDesignMode)
@@ -104,7 +104,11 @@ namespace UniversalGraphics.Win2D
 		}
 
 		public static readonly DependencyProperty DelegateProperty
+#if WINDOWS_PHONE_APP
+			= DependencyProperty.Register(nameof(Delegate), typeof(object), typeof(UGCanvasControl), new PropertyMetadata(null, OnDelegateChanged));
+#else
 			= DependencyProperty.Register(nameof(Delegate), typeof(IUGCanvasViewDelegate), typeof(UGCanvasControl), new PropertyMetadata(null, OnDelegateChanged));
+#endif
 
 		private static void OnDelegateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{

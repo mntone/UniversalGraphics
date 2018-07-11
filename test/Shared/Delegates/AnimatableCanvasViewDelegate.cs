@@ -1,7 +1,12 @@
 ﻿using System;
-using System.Numerics;
 using System.Reactive.Linq;
 using System.Threading;
+
+#if WINDOWS_APP || WINDOWS_PHONE_APP
+using Microsoft.Graphics.Canvas.Numerics;
+#else
+using System.Numerics;
+#endif
 
 namespace UniversalGraphics.Test.Delegates
 {
@@ -55,21 +60,21 @@ namespace UniversalGraphics.Test.Delegates
 				var hourLengths = .5F * radius;
 				var hourLengthsX = (float)(hourLengths * Math.Cos(hourDegrees));
 				var hourLengthsY = (float)(hourLengths * Math.Sin(hourDegrees));
-				context.DrawLine(center, center + new Vector2(hourLengthsX, hourLengthsY), GRAY, 4F);
+				context.DrawLine(center, new Vector2() { X = center.X + hourLengthsX, Y = center.Y + hourLengthsY }, GRAY, 4F);
 			}
 			{
 				var minDegrees = PI2 * current.Minute / 60F - PI_H;
 				var minLengths = .7F * radius;
 				var minLengthsX = (float)(minLengths * Math.Cos(minDegrees));
 				var minLengthsY = (float)(minLengths * Math.Sin(minDegrees));
-				context.DrawLine(center, center + new Vector2(minLengthsX, minLengthsY), GRAY, 4F);
+				context.DrawLine(center, new Vector2() { X = center.X + minLengthsX, Y = center.Y + minLengthsY }, GRAY, 4F);
 			}
 			{
 				var secDegrees = PI2 * current.Second / 60F - PI_H;
 				var secLengths = .9F * radius;
 				var secLengthsX = (float)(secLengths * Math.Cos(secDegrees));
 				var secLengthsY = (float)(secLengths * Math.Sin(secDegrees));
-				context.DrawLine(center, center + new Vector2(secLengthsX, secLengthsY), RED, 4F);
+				context.DrawLine(center, new Vector2() { X = center.X + secLengthsX, Y = center.Y + secLengthsY }, RED, 4F);
 			}
 		}
 	}
