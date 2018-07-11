@@ -27,7 +27,11 @@ namespace UniversalGraphics.GdiPlus
 		private readonly UGSize _requestedSize;
 
 		private bool _disposed = false;
-		private TextFormatFlags _native = TextFormatFlags.PreserveGraphicsTranslateTransform | TextFormatFlags.NoPadding;
+		private float _scale = 1F;
+		private TextFormatFlags _native = TextFormatFlags.WordBreak
+			| TextFormatFlags.PreserveGraphicsClipping
+			| TextFormatFlags.PreserveGraphicsTranslateTransform
+			| TextFormatFlags.NoPadding;
 
 		public UGTextLayout(IUGContext context, string textString, IUGTextFormat textFormat)
 			: this(context, textString, textFormat, UGSize.MaxValue)
@@ -38,6 +42,8 @@ namespace UniversalGraphics.GdiPlus
 			_textFormat = (UGTextFormat)textFormat;
 			_textString = textString;
 			_requestedSize = requestedSize;
+
+			_scale = context.ScaleFactor;
 		}
 
 		public void Dispose()
@@ -47,8 +53,20 @@ namespace UniversalGraphics.GdiPlus
 			GC.SuppressFinalize(this);
 		}
 
+		private void InvalidateScale()
+		{
+			_LayoutBounds = UGRect.Zero;
+		}
+
 		internal void Draw(Graphics graphics, float x, float y, Color color, float scale)
 		{
+			if (_scale != scale)
+			{
+				_scale = scale;
+
+				InvalidateScale();
+			}
+
 			var rectangle = new Rectangle(
 				(int)(scale * x + .5F),
 				(int)(scale * y + .5F),
@@ -92,7 +110,9 @@ namespace UniversalGraphics.GdiPlus
 			{
 				if (_LayoutBounds.IsEmpty)
 				{
-					var size = _requestedSize.ToGDISize();
+					var size = new Size(
+						(int)(_scale * _requestedSize.Width + .5F),
+						(int)(_scale * _requestedSize.Height + .5F));
 					var result = TextRenderer.MeasureText(_textString, _textFormat.Native, size, _native);
 					_LayoutBounds = new UGRect(Vector2.Zero, result.Width, result.Height);
 				}
